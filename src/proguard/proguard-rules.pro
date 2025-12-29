@@ -1,0 +1,7 @@
+-keep class brut.** { *; }
+-keep class com.** { *; }
+-keep class org.** { *; }
+-keep class io.** { *; }
+-keep class javax.** { *; }
+-keep class java.** { *; }
+-keep class kotlinx.** { *; }

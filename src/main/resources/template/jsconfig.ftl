@@ -1,0 +1,6 @@
+{
+  "name": "cheese",
+  "private": true,
+  "version": "0.0.1",
+  "type": "module"
+}

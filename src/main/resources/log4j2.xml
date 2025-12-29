@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- log4j2 配置文件 -->
+<!-- 日志级别 trace<debug<info<warn<error<fatal -->
+<configuration status="warn">
+    <!-- 自定义属性 -->
+    <Properties>
+        <!-- 日志格式(控制台) -->
+        <Property name="pattern1">%m%n</Property>
+        <!-- 日志格式(文件) -->
+        <Property name="pattern2">
+            =========================================%n 日志级别：%p%n 日志时间：%d%n 所属类名：%c%n 所属线程：%t%n 日志信息：%m%n
+        </Property>
+        <!-- 日志文件路径 -->
+        <Property name="filePath">logs/myLog.log</Property>
+    </Properties>
+
+    <appenders>
+        <Console name="Console" target="SYSTEM_OUT">
+            <PatternLayout pattern="${pattern1}"/>
+        </Console>
+        <RollingFile name="RollingFile" fileName="${filePath}"
+                     filePattern="logs/$${date:yyyy-MM}/app-%d{MM-dd-yyyy}-%i.log.gz">
+            <PatternLayout pattern="${pattern2}"/>
+            <SizeBasedTriggeringPolicy size="5 MB"/>
+        </RollingFile>
+    </appenders>
+
+    <loggers>
+        <!-- 根日志级别设置为 debug -->
+        <root level="debug">
+            <appender-ref ref="Console"/>
+            <appender-ref ref="RollingFile"/>
+        </root>
+
+        <!-- 将 io.netty 的日志级别设置为 WARN，以禁用详细的调试日志 -->
+        <logger name="io.netty" level="warn"/>
+        <logger name="org.eclipse.jgit" level="off"/>
+        <!-- 如果需要禁用其他相关的日志，也可以添加类似的配置 -->
+        <!-- <logger name="org.websocket" level="warn"/> -->
+    </loggers>
+</configuration>
